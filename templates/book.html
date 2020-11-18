@@ -1,0 +1,27 @@
+{% extends "templates.html" %}
+{%  block title %}
+{{book.title}} by {{  book.author }}
+{% endblock %}
+{% set ns = namespace()  %}
+{% set ns.sentreview = True %}
+{% block body %}
+    Isbn: {{ book.isbn }}
+    Year: {{ book.year }}
+    Average Rating Score {{ book.review_count }}
+    Rating count {{ book.average_score }}
+    Reviews:
+    <ol>
+
+    {% for review in reviews %}
+        <li>{{ review.review }} by {{ review.user }}</li>
+            {% set ns.sentreview = (review.user != user and ns.sentreview) %}
+    {% endfor %}
+    </ol>
+    {% if ns.sentreview %}
+        <form action="{{ url_for('book',name = book.title, id = book.id) }}", method="post">
+            <input type="text" name="review" placeholder="enter review here">
+            <button>Add review</button>
+        </form>
+    {% endif %}
+
+{% endblock %}

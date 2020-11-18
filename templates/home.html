@@ -1,0 +1,16 @@
+{% extends "templates.html" %}
+{%  block title %}
+Hello, {{username}}
+{% endblock %}
+
+{% block body %}
+
+    <form action="{{ url_for('searchresults') }}", method="post">
+    <input type="text" name="searchresult" placeholder="Search for a book">
+    <button> Search</button>
+    </form>
+
+<form action="{{ url_for('index') }}", method="post">
+    <button>Logout</button>
+</form>
+{%  endblock %}
